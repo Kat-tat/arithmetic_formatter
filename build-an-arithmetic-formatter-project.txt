@@ -1,0 +1,54 @@
+def arithmetic_arranger(problems, show_answers=False):
+    first = ""
+    second = ""
+    third = ""
+    fourth = ""
+    if len(problems)> 5:
+        return 'Error: Too many problems.'
+    for problem in problems:  
+        split_problem = problem.split()
+        first_number = split_problem[0]
+        operator = split_problem[1]
+        second_number = split_problem[2]
+        solution = ''
+        
+        if first_number.isdigit() and second_number.isdigit():
+            if len(first_number) >4:
+                return 'Error: Numbers cannot be more than four digits.'
+            elif len(second_number) >4:
+                return 'Error: Numbers cannot be more than four digits.'
+        else:
+            return 'Error: Numbers must only contain digits.'
+        if operator == '+':
+            solution = int(first_number) + int(second_number)
+        elif operator == '-':
+            solution = int(first_number) - int(second_number)
+        else:
+            return "Error: Operator must be '+' or '-'."
+
+        #formatting problems
+        length = max(len(first_number), len(second_number)) + 2
+        line_1 = str(first_number).rjust(length)
+        line_2 = operator + str(second_number).rjust(length -1)
+        dashes = length * '-'  
+        line_3 = str(solution).rjust(length)
+
+        if problem != problems[-1]:
+            first += line_1 + '    '
+            second += line_2 + '    '
+            third += dashes + '    '
+            fourth += line_3 + '    '
+        else:
+            first += line_1
+            second += line_2
+            third += dashes
+            fourth += line_3
+
+    if show_answers == True:
+        formatted_problems = first +'\n'+ second +'\n'+ third +'\n'+ fourth
+    elif show_answers == False:
+        formatted_problems = first +'\n'+ second +'\n'+ third
+    return formatted_problems
+        
+        
+print(f'\n{arithmetic_arranger(["98 + 3g5", "3801 - 2", "45 + 43", "123 + 49"])}')
